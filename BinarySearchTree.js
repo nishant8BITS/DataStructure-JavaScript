@@ -24,13 +24,6 @@
  (function(){
  	'use strict';
 
- 	// Define Node structure
- 	var node = {
- 		value : 124,
- 		left  : null,
- 		right : null
- 	};
-
  	function BST(){
  		this.root = null;
  	}
@@ -95,15 +88,15 @@
  		},
 
  		size : function(){
-
+ 			var length = 0;
+ 			this.traverse(function(){
+ 				length++;
+ 			})
+ 			return length;
  		},
 
  		toString : function(){
-
- 		},
-
- 		toJson : function(){
-
+ 			return this.toArray().toString();
  		},
 
  		toArray : function(){
@@ -142,5 +135,6 @@
  	    BinaryTree.add(11);
  	    BinaryTree.add(1);
  	    console.log(BinaryTree.toArray());
+ 	    console.log(BinaryTree.toString());
 
  })();

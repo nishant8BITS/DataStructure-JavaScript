@@ -1,5 +1,5 @@
-/*
- * Stack implementation in JavaScript
+ /*
+ * Base Conversion using Stack implementation in JavaScript
  * Copyright (c) 2015 Nishant Kumar
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,36 +21,6 @@
  * THE SOFTWARE.
  */
 
- function Stack(){
- 	this.dataStore = [];
- 	this.top = 0;
- }
-
- Stack.prototype = {
- 	push : function(element){
- 		this.dataStore[this.top++] = element;
- 	},
-
- 	pop : function(){
- 		return this.dataStore[--this.top];
- 	},
-
- 	peep : function(){
- 		return this.dataStore[top-1];
- 	},
-
- 	length : function(){
- 		return this.top;
- 	},
-
- 	clear : function(){
- 		return this.top = 0;
- 	}, 
- 	toString: function(){
- 		return this.dataStore.toString();
- 	}
- }
-
  function convertBase(num, base){
 	var container = new Stack();
 	do{
@@ -59,5 +29,3 @@
 	}while(num > 0);
 	return container.dataStore.join('').toString();
 }
-
-console.log(convertBase(16, 2));
