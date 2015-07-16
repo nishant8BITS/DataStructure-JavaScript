@@ -24,6 +24,12 @@
  (function(){
  	'use strict';
 
+ 	function Node(data, left, right){
+ 		this.data = data;
+ 		this.left = left;
+ 		this.right = right;
+ 	}
+
  	function BST(){
  		this.root = null;
  	}
@@ -32,27 +38,22 @@
  		constructor: BST,
  		
  		add : function(value){
- 			var node = {
-		 		value : value,
-		 		left  : null,
-		 		right : null
-		 	},
-
-		 	current;
+ 			var node = new Node(value, null, null),
+		 		current;
 
 		 	if(this.root === null){
 		 		this.root = node;
 		 	}else{
 		 		current = this.root;
 		 		while(!!current){
-		 			if(value < current.value){
+		 			if(value < current.data){
 		 				if(current.left === null){
 		 					current.left = node;
 		 					break;
 		 				}else{
 		 					current = current.left;
 		 				}
-		 			}else if(value > current.value){
+		 			}else if(value > current.data){
 		 				if(current.right === null){
 		 					current.right = node;
 		 					break;
@@ -75,9 +76,9 @@
  				found = false;
 
  			while(!!current){
- 				if(value > current.value){
+ 				if(value > current.data){
  					current = current.right;
- 				}else if(value < current.value){
+ 				}else if(value < current.data){
  					current = current.left;
  				}else {
  					found = true;
@@ -102,7 +103,7 @@
  		toArray : function(){
  			var list = [];
  			this.traverse(function(node){
- 				list.push(node.value);
+ 				list.push(node.data);
  			});
 
  			return list;
@@ -124,6 +125,34 @@
  				}
  			}
  			inOrder(this.root);
+ 		}, 
+
+ 		getMin : function(){
+ 			var current = this.root;
+ 			if(current !== null){
+ 				while(!!current){
+ 					if(current.left !== null){
+ 						current = current.left;
+ 					}else{
+ 						break;
+ 					}
+ 				}
+ 			}
+ 			return current.data;
+ 		},
+
+ 		getMax : function(){
+ 			var current = this.root;
+ 			if(current !== null){
+ 				while(!!current){
+ 					if(current.right !== null){
+ 						current = current.right;
+ 					}else{
+ 						break;
+ 					}
+ 				}
+ 			}
+ 			return current.data;
  		}
  	};
 
@@ -135,6 +164,6 @@
  	    BinaryTree.add(11);
  	    BinaryTree.add(1);
  	    console.log(BinaryTree.toArray());
- 	    console.log(BinaryTree.toString());
+ 	    console.log(BinaryTree.getMax());
 
  })();
