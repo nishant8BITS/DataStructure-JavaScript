@@ -67,8 +67,89 @@
 		 	}
  		},
 
- 		remove : function(){
+ 		remove : function(data){	
+ 			if(this.root === null){
+ 				return null;
+ 			}else{
+				this.root = removeData(null,this.root, data);
+ 			}
 
+ 			function removeData(parent,root, data){
+ 				var current = root,
+ 				    parent = parent;
+
+ 				if(current.data === data){
+ 					// When no children 
+ 					if(current.left === null && current.right === null){
+ 						if(parent !== null){
+ 							if(parent.left !== null && parent.left.data === current.data){
+ 								parent.left = null;
+ 							}else{
+ 								parent.right = null;
+ 							}
+ 						}else{
+ 							return null;
+ 						}
+ 					}
+
+ 					// When have both children 
+ 					if(current.left !== null && current.right !== null){
+ 						// Find min node to the right
+ 						var minNodeInfo = getMinNode(current.right);
+ 						var node = minNodeInfo.current;
+ 							parent = minNodeInfo.parent || current;
+ 						current.data = node.data;
+ 						removeData(parent,node,node.data);
+ 					}
+
+ 					if(current.left !== null){
+ 						if(!!parent.left && current.data === parent.left.data){
+ 							parent.left = current.left;
+ 						}
+ 						if(!!parent.right && current.data === parent.right.data){
+ 							parent.right = current.left;
+ 						}
+ 					}
+
+ 					if(current.right !== null){
+ 						if(!!parent.right && current.data === parent.right.data){
+ 							parent.right = current.right;
+ 						}
+ 						if(!!parent.left && current.data === parent.left.data){
+ 							parent.left = current.right;
+ 						}
+ 					}
+ 				}else{
+ 					// Ref the parent node link 
+ 					parent =  current;
+ 					if(current.left !== null){
+ 						removeData(parent,current.left, data);
+ 					}
+ 					if(current.right !== null){
+ 						removeData(parent,current.right, data);
+ 					}
+ 				}
+ 				return current;	
+ 			}
+
+ 			function getMinNode(root){
+ 				var current = root,
+ 				    parent = null;
+	 			if(current !== null){
+	 				while(!!current){
+	 					if(current.left !== null){
+	 						parent = current;
+	 						current = current.left;
+	 					}else{
+	 						break;
+	 					}
+	 				}
+	 			}
+	 			return {
+		 					'current':current,
+		 					'parent' : parent
+	 			   	   };
+ 			}
  		},
 
  		contains : function(value){
@@ -157,13 +238,25 @@
  	};
 
  	var BinaryTree = new BST();
- 	    BinaryTree.add(2);
- 	    BinaryTree.add(3);
- 	    BinaryTree.add(4);
- 	    BinaryTree.add(9);
- 	    BinaryTree.add(11);
- 	    BinaryTree.add(1);
+ 	    BinaryTree.add(19);
+		BinaryTree.add(5);
+		BinaryTree.add(21);
+		BinaryTree.add(25);
+		BinaryTree.add(18);
+		BinaryTree.remove(19);
+		BinaryTree.remove(5);
+		BinaryTree.remove(18);
+		BinaryTree.remove(25);
+		BinaryTree.remove(21);
+		BinaryTree.add(21);
+		BinaryTree.add(78);
+		BinaryTree.add(2);
+		BinaryTree.add(25);
+		BinaryTree.add(49);
+		BinaryTree.add(0);
+        BinaryTree.remove(21);
+        BinaryTree.remove(78);
+		BinaryTree.remove(25);
+		BinaryTree.add(21);
  	    console.log(BinaryTree.toArray());
- 	    console.log(BinaryTree.getMax());
-
  })();
