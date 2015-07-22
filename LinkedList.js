@@ -99,7 +99,42 @@
  		},
 
  		insert : function(pos){
- 			
+
+ 		},
+
+ 		getElement : function(pos){
+ 			var current = this.head,
+ 			    listLen = this.listSize;
+ 			for(var index = 0; index < listLen ; index ++){
+ 				if(pos === index-1){
+ 					return current.data;
+ 				}else{
+ 					current = current.next;
+ 				}		
+ 			}
+ 		},
+
+ 		contains : function(elem){
+ 			var found = false,
+ 			    current = this.head;
+
+ 			    while(!!current){
+ 			    	if(current.data === elem){
+ 			    		found = true;
+ 			    		break;
+ 			    	}else{
+ 			    		current = current.next;
+ 			    	}
+ 			    }
+ 			    return found;
+ 		},
+
+ 		moveTo : function(curPos, newPos){
+
+ 		},
+
+ 		length : function(){
+ 			return this.listSize;
  		}
  	};
 
@@ -114,6 +149,7 @@
  	    testList.append(6);
  	    testList.append(9);
  	    testList.remove(4);
- 	    console.log(testList.listSize);
+
+ 	    console.log(testList.contains(6));
 
  })();
