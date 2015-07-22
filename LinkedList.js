@@ -42,13 +42,15 @@
  				current = this.head; 
 
  			    if(current === null){
- 			   		this.head = newNode; 	
+ 			   		this.head = newNode;
+ 			   		this.listSize++; // Increment the length of the list 	
  			    }else{
  			    	while(!!current){
  			    		if(current.next === null){
  			    			current.next = newNode;
  			    			newNode.prev = current;
  			    			newNode.next = null;
+ 			    			this.listSize++;
  			    			break;
  			    		}else{
  			    			current = current.next;
@@ -65,13 +67,49 @@
  				current = current.next;
  			}
  			return list;
+ 		},  
+
+ 		remove : function(elem){
+ 			var current = this.head;
+
+ 			while(!!current){
+ 				if(current.data === elem){
+ 					var nextTempRef = current.next,
+ 					    prevTempRef = current.prev;
+
+ 					if(current.prev === null){ //First Node
+ 						this.head = current.next;
+ 						this.head.prev = null;
+ 						this.listSize--;
+ 						break;
+ 					}else if(current.next === null){ // Last node
+ 						current.prev.next = null;
+ 						this.listSize--;
+ 						break;
+ 					}else{ // Middle Node
+ 						current.prev.next = nextTempRef;
+ 						current.next.prev = prevTempRef;
+ 						this.listSize--;
+ 						break;
+ 					}
+ 				}else{
+ 					current = current.next;
+ 				}
+ 			}
  		}
  	};
 
+ 	/*  
+ 		Test Code 
+		Todo: Need to test using jasmine 
+ 	*/
  	var testList = new LIST();
  	    testList.append('Nishant');
  	    testList.append('Kumar');
  	    testList.append(4);
- 	    console.log(testList.toArray());
+ 	    testList.append(6);
+ 	    testList.append(9);
+ 	    testList.remove(4);
+ 	    console.log(testList.listSize);
 
  })();
