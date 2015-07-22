@@ -96,6 +96,10 @@
  					current = current.next;
  				}
  			}
+ 		},
+
+ 		insert : function(pos){
+ 			
  		}
  	};
 
