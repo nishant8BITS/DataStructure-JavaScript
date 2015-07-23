@@ -44,19 +44,29 @@ function max_num_of_ele(sum, list){
   for(var i = 0; i< list.length; i++){
       count = 0; 
       totalSum = list[i];
-      for(var j=i+1; j< list.length; j++){
-        if(totalSum == sum){
-          break;
-        }
-        count++;
-        totalSum = totalSum + list[j];
-      }
-      if(totalSum == sum){
+      if(sum !== 0){
+        for(var j=i+1; j< list.length; j++){
+          if(totalSum == sum){
+            break;
+          }
           count++;
-          break;
+          totalSum = totalSum + list[j];
+        }
+        if(totalSum == sum){
+            count++;
+            break;
+        }
+      }else{
+        for(var j= 0; j< list.length; j++){
+          if(list[j]===0)
+            count++;
+        }
       }
+
   }
   return count;
 }
 
-console.log(max_num_of_ele(10,[10, 3, 7]));
+
+console.log(max_num_of_ele(10, [-3,10, 3, -1])); 
+
